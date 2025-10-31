@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Contatos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Contatos</h1>
+                <button class="btn-add" id="btnAdd" title="Adicionar novo contato">
+                    <span class="icon">+</span>
+                </button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar contatos" class="search-input">
+            </div>
+
+            <div class="contacts-list" id="contatctsList">
+                <div class="loading">Carregando...</div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <h2>Bem-vindo à sua Agenda</h2>
+                <p>Selecione um contato ou adicione um novo</p>
+            </div>
+
+            <div class="contact-detail" id="contactDetail" style="display: none;">
+                <div class="detail-header">
+                    <h2 id="contactName">Nome de Contato</h2>
+                    <div class="detail-actions">
+                        <button class="btn-icon" id="btnEdit" title="Editar">
+                            <span>✏️</span>
+                        </button>
+                        <button class="btn-icon" id="btnDelete" title="Excluir">
+                            <span>🗑️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="detail-content">
+                    <div class="info-group">
+                        <label>✉️ Email</label>
+                        <p id="contactEmail">-</p>
+                    </div>
+
+                    <div class="info-group">
+                        <label>📱Telefone</label>
+                        <p id="contactPhone">-</p>
+                    </div>
+
+                    <div class="info-group">
+                        <label>👨‍💼 Empresa</label>
+                        <p id="contactCompany">-</p>
+                    </div>
+
+                    <div class="info-group">
+                        <label>💼 Cargo</label>
+                        <p id="contactPosition">-</p>
+                    </div>
+
+                    <div class="info-group">
+                        <label>📝 Observações</label>
+                        <p id="contactNotes">-</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Novo Contato</h2>
+                <button class="btn-close" id="btnCloseModal">&times;</button>
+            </div>
+
+            
+        </div>
+    </div>
+    
+</body>
+</html>
