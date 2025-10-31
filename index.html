@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda Contatos</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <aside class="sidebar">
@@ -97,7 +99,9 @@
                         <label for="inputPhone">Telefone</label>
                         <input type="tel" id="inputPhone">
                     </div>
+                </div>
 
+                <div class="form-row">
                     <div class="form-group">
                         <label for="inputCompany">Empresa</label>
                         <input type="text" id="inputCompany">
@@ -107,20 +111,24 @@
                         <label for="inputPosition">Cargo</label>
                         <input type="text" id="inputPosition">
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="inputNotes">Observações</label>
-                        <textarea id="inputNotes" rows="4"></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="inputNotes">Observações</label>
+                    <textarea id="inputNotes" rows="4"></textarea>
+                </div>
 
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btnCancel">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Salvar
+                    </button>
                 </div>
             </form>
-
-
-
-            
         </div>
     </div>
-    
+
 </body>
 </html>
