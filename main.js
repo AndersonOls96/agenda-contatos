@@ -1,7 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
+const Database = require('./database')
 
 let mainWindow
+let db
 
 function createWindow(){
     mainWindow = new BrowserWindow({
@@ -20,5 +22,35 @@ function createWindow(){
 }
 
 app.whenReady().then(() =>{
+    db = new Database()
+    db.init()
+
     createWindow()
+
+    app.on('activate', () =>{
+        if(BrowserWindow.getAllWindows().length === 0){
+            createWindow()
+        }
+    })
+})
+
+//IPC Handlers
+ipcMain.handle('get-contacts', async (event, searchTerm) =>{
+    return db.getContacts(searchTerm)
+})
+
+ipcMain.handle('get-contact', async (event, id) =>{
+    return db.getContact(id)
+})
+
+ipcMain.handle('add-contact', async (event, contact) =>{
+    return db.addContact(contact)
+})
+
+ipcMain.handle('update-contact', async (event, id, contact) =>{
+    return db.updateContact(id, contact)
+})
+
+ipcMain.handle('delete-contact', async (event, id) =>{
+    return db.deleteContact(id)
 })
