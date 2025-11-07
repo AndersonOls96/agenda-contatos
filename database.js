@@ -46,8 +46,8 @@ class Database {
     }
 
     getContacts(searchTerm = '') {
-        return new promises((resolve, reject) => {
-            let sql = 'SELECT * FROM contacts'
+        return new Promise((resolve, reject) => {
+            let sql = 'SELECT * FROM contacts '
             let params = []
 
             if (searchTerm) {
