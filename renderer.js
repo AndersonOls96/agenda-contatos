@@ -94,4 +94,99 @@ async function showContactDetail(id){
     }
 }
 
+function openAddModal(){
+    isEditMode = false
+    document.getElementById('modal-title').textContent = 'Novo contato'
+    contactForm.reset()
+    contactModal.classList.add('show')
+}
+
+async function openEditModal(){
+    if (!currentContactId) return
+
+    try{
+        const contact = await window.electronAPI.getContact(currentContactId)
+
+        isEditMode = true
+        document.getElementById('modal-title').textContent = 'Editar Contato'
+
+        inputName.value = contact.name || ''
+        inputEmail.value = contact.email || ''
+        inputPhone.value = contact.phone || ''
+        inputCompany.value = contact.company || ''
+        inputPosition.value = contact.position || ''
+        inputNotes.value = contact.notes || ''
+
+        contactModal.classList.add('show')
+    }catch(error){
+        console.error('Erro ao carregar contato:', error)
+    }
+}
+
+
+function closeModal(){
+    contactModal.classList.remove('show')
+    contactForm.reset()
+}
+
+async function saveContact(event){
+    event.preventDefault();
+
+    const contact = {
+        name: inputName.value.trim(),
+        email: inputEmail.value.trim(),
+        phone: inputPhone.value.trim(),
+        company: inputCompany.value.trim(),
+        position: inputPosition.value.trim(),
+        notes: inputNotes.value.trim()
+    }
+
+    if (!contact.name){
+        alert('O nome é obrigatório!')
+        return
+    }
+
+    try{
+        if (isEditMode && currentContactId){
+            await window.electronAPI.updateContact()(currentContactId, contact)
+            showContactDetail(currentContactId)
+        }else{
+            const result = await window.electronAPI.addContact(contact)
+            currentContactId = result.id
+            showContactDetail(result.id)
+        }
+
+        closeModal()
+        loadContacts()
+    }catch(error){
+        console.error('Erro ao salvar contato', error)
+        alert('Erro ao salvar contato. Tente novamente.')
+    }
+}
+
+async function deleteContact(){
+    if (!currentContactId) return;
+
+    const confirmed = confirm('Tem certeza que deseja excluir este contato?')
+    if(!confirmed) return
+
+    try{
+        await window.electronAPI.deleteContact(currentContactId)
+
+        currentContactId = null
+        welcomeScreen.style.display = 'flex'
+        contactDetail.style.display = 'none'
+
+        loadContacts(searchInput.value)
+    }catch(error){
+        console.error('Erro ao deletar contato:', error)
+        alert('Erro ao deletar contato. Tente novamente.')
+    }
+}
+
+
+btnAdd.addEventListener('click', openAddModal)
+btnDelete.addEventListener('click', deleteContact)
+btnCloseModal.addEventListener('click', closeModal)
+contactForm.addEventListener('submit', saveContact)
 loadContacts()
