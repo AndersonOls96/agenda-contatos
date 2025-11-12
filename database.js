@@ -110,7 +110,7 @@ class Database {
         return new Promise((resolve, reject) => {
             const sql = `
                 UPDATE contacts
-                SET name = ?, email = ?, phone = ?, company = ?, position = ?, notes = ?, updated_at = ?,
+                SET name = ?, email = ?, phone = ?, company = ?, position = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
                 WHERE id = ?
             `
 
@@ -120,7 +120,8 @@ class Database {
                 contact.phone,
                 contact.company,
                 contact.position,
-                contact.notes
+                contact.notes,
+                id
             ]
 
             this.db.run(sql, params, function (err) {

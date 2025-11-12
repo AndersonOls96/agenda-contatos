@@ -4,14 +4,28 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build:win": "electron-builder --win"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "electron": "^39.0.0",
-    "electron-builder": "^26.0.12",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
     "sqlite3": "^5.1.7"
+  },
+  "build":{
+    "appId": "com.agenda.contatos",
+    "productName": "Agenda de Contatos",
+    "directories":{
+      "output": "dist"
+    },
+    "win":{
+      "target": "nsis",
+      "icon": "assets/Icone.png"
+    }
   }
 }

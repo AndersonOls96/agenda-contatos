@@ -110,7 +110,7 @@ async function openEditModal(){
         isEditMode = true
         document.getElementById('modal-title').textContent = 'Editar Contato'
 
-        inputName.value = contact.name || ''
+        inputName.value = contact.name
         inputEmail.value = contact.email || ''
         inputPhone.value = contact.phone || ''
         inputCompany.value = contact.company || ''
@@ -148,7 +148,7 @@ async function saveContact(event){
 
     try{
         if (isEditMode && currentContactId){
-            await window.electronAPI.updateContact()(currentContactId, contact)
+            await window.electronAPI.updateContact(currentContactId, contact)
             showContactDetail(currentContactId)
         }else{
             const result = await window.electronAPI.addContact(contact)
@@ -186,7 +186,24 @@ async function deleteContact(){
 
 
 btnAdd.addEventListener('click', openAddModal)
+btnEdit.addEventListener('click', openEditModal)
 btnDelete.addEventListener('click', deleteContact)
 btnCloseModal.addEventListener('click', closeModal)
+btnCancel.addEventListener('click', closeModal)
 contactForm.addEventListener('submit', saveContact)
+
+let searchTimeout
+searchInput.addEventListener('input', (e) =>{
+    clearTimeout(searchTimeout)
+    searchTimeout = setTimeout(() =>{
+        loadContacts(e.target.value)
+    }, 300)
+})
+
+contactModal.addEventListener('click', (e) =>{
+    if(e.target === contactModal){
+        closeModal()
+    }
+})
+
 loadContacts()
